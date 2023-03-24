@@ -117,7 +117,7 @@ class Trainer:
         
 # Initialize a new Trainer object and specify the path to the training data
 # need to download the Cornell Movie Dialogs Corpus from http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html
-trainer = Trainer("data.txt")
+trainer = Trainer("data/data.txt")
 
 # Train the chatbot for 1000 epochs and save the model to a file called "model.pth"
 trainer.train(n_epochs=1000, learning_rate=0.01, save_path="model.pth")
