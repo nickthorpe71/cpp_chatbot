@@ -41,10 +41,13 @@ except ImportError:
 
 # Import Data
 data = pd.read_csv('data/cbbb.csv')
-# got GoT data we need to rename the column names
-# data.rename(columns={'Name': 'name', 'Sentence': 'line'}, inplace=True)
+# got_data = pd.read_csv('data/got.csv')
+# for GoT data we need to rename the column names
+# got_data.rename(columns={'Name': 'name', 'Sentence': 'line'}, inplace=True)
 
-CHARACTER_NAME = 'SPIKE'
+# data = pd.concat([cbbb_data, got_data], ignore_index=True)
+
+# CHARACTER_NAME = 'SPIKE'
 
 
 # Create Context Window
@@ -59,7 +62,7 @@ n = 7
 # and we want the model to be able to predict the next line of a conversation
 # based on the context of the conversation
 
-for i in data[data.name == CHARACTER_NAME].index:
+for i in data.index:
     if i < n:
         continue
     row = []
@@ -183,6 +186,7 @@ def _rotate_checkpoints(args, checkpoint_prefix="checkpoint", use_mtime=False) -
         shutil.rmtree(checkpoint)
 
 
+# The model can be -small -medium -large
 tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
 model = AutoModelWithLMHead.from_pretrained("microsoft/DialoGPT-small")
 
@@ -220,7 +224,7 @@ class Args():
         self.weight_decay = 0.0
         self.adam_epsilon = 1e-8
         self.max_grad_norm = 1.0
-        self.num_train_epochs = 4
+        self.num_train_epochs = 12  # start is 4
         self.max_steps = -1
         self.warmup_steps = 0
         self.logging_steps = 1000
